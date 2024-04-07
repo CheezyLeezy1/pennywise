@@ -1,0 +1,42 @@
+import Link from 'next/link'
+import buttonStyle from '@/app/styles/button.module.css'
+import HeaderNavLinks from '@/data/HeaderNavLinks'
+import Image from 'next/image'
+
+export default function Header() {
+  const navLinks = HeaderNavLinks
+  return (
+    <header className="bg-gray-50 shadow h-16 flex text-black items-center border-b border-gray-300 tracking-tighter">
+      <div className="container mx-auto px-4 flex justify-between items-cente mb-2r">
+        <Link
+          className=" flex items-center gap-2 text-lg mr-8 font-bold"
+          href="/"
+        >
+          PennyWise
+        </Link>
+        <nav className="flex justify-center flex-2">
+          <ul className="flex space-x-4 ">
+            {navLinks.map((link, index) => (
+              <li key={index} className="flex items-center space-x-2">
+                <Link
+                  className="text-m font-medium hover:underline hover:font-bold hover:scale-105"
+                  href={link.href}
+                >
+                  {link.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex space-x-4 ">
+          <Link className={buttonStyle.button} href="#">
+            Sign In
+          </Link>
+          <Link className={buttonStyle.button} href="#">
+            Sign Up
+          </Link>
+        </div>
+      </div>
+    </header>
+  )
+}

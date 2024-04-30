@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import buttonStyle from '@/app/styles/button.module.css'
 import HeaderNavLinks from '@/data/HeaderNavLinks'
-import Image from 'next/image'
+import {
+  LoginLink,
+  RegisterLink,
+} from '@kinde-oss/kinde-auth-nextjs/components'
 
 export default function Header() {
   const navLinks = HeaderNavLinks
@@ -29,12 +32,8 @@ export default function Header() {
           </ul>
         </nav>
         <div className="flex space-x-4 ">
-          <Link className={buttonStyle.button} href="#">
-            Sign In
-          </Link>
-          <Link className={buttonStyle.button} href="#">
-            Sign Up
-          </Link>
+          <LoginLink className={buttonStyle.button}>Sign in</LoginLink>
+          <RegisterLink className={buttonStyle.button}>Sign up</RegisterLink>
         </div>
       </div>
     </header>

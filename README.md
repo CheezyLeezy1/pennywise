@@ -1,6 +1,6 @@
 # PennyWise
 
-PennyWise is a AI-Powered financial advisor application that aims to enable users to take better control of their financial lives. 
+PennyWise is a AI-Powered financial advisor application that aims to enable users to take better control of their financial lives.
 The app combines AI-driven financial insights with an emphasis on Security to provide users with personalised budgetary guidance and analytics.
 
 ## Getting Started
@@ -78,3 +78,4 @@ To learn more about Next.js, take a look at the following resources:
 
 ```
 
+```

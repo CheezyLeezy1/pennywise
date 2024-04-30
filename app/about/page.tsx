@@ -7,7 +7,7 @@ import {
 export default function About() {
   return (
     <>
-      <div className="w-full py-6 bg-gray-50 text-black pt-16 pb-16">
+      <div className="w-full pt-24 bg-gray-50 text-black pb-16">
         <div className="container justify-center flex flex-col mx-auto items-center px-4 md:px-6">
           <div className="flex flex-col gap-4 md:gap-8 lg:gap-12">
             <div className="flex flex-col gap-2">
@@ -15,8 +15,8 @@ export default function About() {
                 Welcome to PennyWise
               </h1>
               <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed dark:text-gray-400">
-                At PennyWise, we're on a mission to revolutionise the way you
-                manage your finances. Our AI-powered platform empowers
+                At PennyWise, we&apos;re on a mission to revolutionise the way
+                you manage your finances. Our AI-powered platform empowers
                 individuals like you to take control of your financial future,
                 providing personalized insights, expert advice, and intuitive
                 tools to help you achieve your monetary goals with confidence.
@@ -37,9 +37,9 @@ export default function About() {
                 <p className="max-w-prose text-gray-500 md:text-xl/relaxed dark:text-gray-400">
                   PennyWise was born from a vision to empower individuals to
                   make smarter financial decisions. Founded by a team of
-                  passionate innovators, we've dedicated ourselves to creating a
-                  platform that combines cutting-edge technology with expert
-                  financial knowledge to help you unlock your financial
+                  passionate innovators, we&apos;ve dedicated ourselves to
+                  creating a platform that combines cutting-edge technology with
+                  expert financial knowledge to help you unlock your financial
                   potential.
                 </p>
               </div>
@@ -71,7 +71,7 @@ export default function About() {
                   with us today and discover how PennyWise can help you turn
                   your financial dreams into reality.
                 </p>
-                <div className="grid gap-2 md:grid-cols-2">
+                <div className="grid gap-2 md:grid-cols-2 pb-8">
                   <div className="flex items-center gap-2">
                     <InboxIcon className="w-4 h-4 text-gray-500" />
                     <a

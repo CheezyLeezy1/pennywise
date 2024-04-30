@@ -32,7 +32,7 @@ export default function FeatureSection() {
               <h3 className="text-lg font-bold ">Financial Insights</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Gain deep financial insights into your spending habits and
-                investment opportunities, all within PennyWise's intuitive
+                investment opportunities, all within PennyWise&apos;s intuitive
                 interface.
               </p>
             </div>
@@ -66,7 +66,7 @@ export default function FeatureSection() {
               <ShieldCheckIcon className="w-7 h-7 " />
             </div>
             <div className="grid gap-1">
-              <h3 className="text-lg font-bold ">Secure</h3>
+              <h3 className="text-lg font-bold ">Security</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 PennyWise prioritizes your security, providing robust measures
                 to safeguard your financial data and transactions at every step.

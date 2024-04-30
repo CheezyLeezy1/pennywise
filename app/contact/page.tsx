@@ -1,12 +1,10 @@
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import buttonStyle from '@/app/styles/button.module.css'
 
 function Contact() {
   return (
     <>
-      <div className="flex items-center min-h-screen px-4 bg-gray-50 text-black">
-        <div className="w-full h-fit max-w-lg mx-auto space-y-4">
+      <div className="flex items-center min-h-[87vh] bg-gray-50 text-black">
+        <div className="w-full max-w-5xl p-10 border rounded-lg shadow-lg mx-auto space-y-4">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold ">Contact Support</h1>
             <p className="text-gray-500">

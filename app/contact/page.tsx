@@ -1,6 +1,6 @@
 import buttonStyle from '@/app/styles/button.module.css'
 
-function Contact() {
+export default function Contact() {
   return (
     <>
       <div className="flex items-center min-h-[87vh] bg-gray-50 text-black">
@@ -75,5 +75,3 @@ function Contact() {
     </>
   )
 }
-
-export default Contact

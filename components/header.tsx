@@ -1,18 +1,27 @@
 import Link from 'next/link'
 import buttonStyle from '@/app/styles/button.module.css'
 import HeaderNavLinks from '@/data/HeaderNavLinks'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import {
   LoginLink,
   RegisterLink,
 } from '@kinde-oss/kinde-auth-nextjs/components'
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
 
-export default function Header() {
+async function isAuthenticated() {
+  const { isAuthenticated: isAuth } = getKindeServerSession()
+
+  return await isAuth()
+}
+
+export default async function Header() {
   const navLinks = HeaderNavLinks
+
   return (
     <header className="bg-gray-50 shadow h-16 flex text-black items-center border-b border-gray-300 tracking-tighter">
       <div className="container mx-auto px-4 flex justify-between items-cente mb-2r">
         <Link
-          className=" flex items-center gap-2 text-lg mr-8 font-bold"
+          className="flex items-center gap-2 text-lg mr-8 font-bold"
           href="/"
         >
           PennyWise
@@ -31,9 +40,17 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-        <div className="flex space-x-4 ">
-          <LoginLink className={buttonStyle.button}>Sign in</LoginLink>
-          <RegisterLink className={buttonStyle.button}>Sign up</RegisterLink>
+        <div className="flex space-x-4">
+          {(await isAuthenticated()) ? (
+            <LogoutLink className={buttonStyle.button}>Log out</LogoutLink>
+          ) : (
+            <>
+              <LoginLink className={buttonStyle.button}>Sign in</LoginLink>
+              <RegisterLink className={buttonStyle.button}>
+                Sign up
+              </RegisterLink>
+            </>
+          )}
         </div>
       </div>
     </header>

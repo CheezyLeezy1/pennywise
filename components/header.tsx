@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import buttonStyle from '@/app/styles/button.module.css'
 import HeaderNavLinks from '@/data/HeaderNavLinks'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import {getKindeServerSession} from '@kinde-oss/kinde-auth-nextjs/server'
 import {
   LoginLink,
   RegisterLink,
 } from '@kinde-oss/kinde-auth-nextjs/components'
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
+import {LogoutLink} from '@kinde-oss/kinde-auth-nextjs/components'
 
 async function isAuthenticated() {
   const { isAuthenticated: isAuth } = getKindeServerSession()
@@ -15,8 +15,6 @@ async function isAuthenticated() {
 }
 
 export default async function Header() {
-  const navLinks = HeaderNavLinks
-
   return (
     <header className="bg-gray-50 shadow h-16 flex text-black items-center border-b border-gray-300 tracking-tighter">
       <div className="container mx-auto px-4 flex justify-between items-cente mb-2r">
@@ -28,7 +26,7 @@ export default async function Header() {
         </Link>
         <nav className="flex justify-center flex-2">
           <ul className="flex space-x-4 ">
-            {navLinks.map((link, index) => (
+            {HeaderNavLinks.map((link, index) => (
               <li key={index} className="flex items-center space-x-2">
                 <Link
                   className="text-m font-medium hover:underline hover:font-bold hover:scale-105"

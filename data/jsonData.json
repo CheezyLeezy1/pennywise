@@ -44,9 +44,7 @@
     "name": "Allied Irish Banks",
     "bic": "AIBKIE2DXXX",
     "transaction_total_days": "730",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/IE/PNG/aib.png"
   },
   {
@@ -54,9 +52,7 @@
     "name": "Allied Irish Banks Corporate",
     "bic": "AIBKIE2DXXX",
     "transaction_total_days": "730",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/IE/PNG/aib.png"
   },
   {
@@ -64,9 +60,7 @@
     "name": "Bank of Ireland 365 Online",
     "bic": "BOFIIE2D",
     "transaction_total_days": "365",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/IE/PNG/bankofireland.png"
   },
   {
@@ -74,9 +68,7 @@
     "name": "Bank of Ireland Business On Line",
     "bic": "BOFIIE2D",
     "transaction_total_days": "365",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/IE/PNG/bankofirelandbusiness.png"
   },
   {
@@ -120,9 +112,7 @@
     "name": "EBS",
     "bic": "EBSIIE2DSDD",
     "transaction_total_days": "730",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://cdn-logos.gocardless.com/ais/EBS_EBSIIE2DSDD.png"
   },
   {
@@ -130,9 +120,7 @@
     "name": "Fire",
     "bic": "CPAYIE2DXXX",
     "transaction_total_days": "730",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://cdn-logos.gocardless.com/ais/FIRE_CPAYIE2DXXX.png"
   },
   {
@@ -443,9 +431,7 @@
     "name": "Permanent TSB",
     "bic": "IPBSIE2D",
     "transaction_total_days": "89",
-    "countries": [
-      "IE"
-    ],
+    "countries": ["IE"],
     "logo": "https://storage.googleapis.com/gc-prd-institution_icons-production/IE/PNG/permanenttsb.png"
   },
   {
@@ -453,15 +439,7 @@
     "name": "Pleo",
     "bic": "PLEODK00",
     "transaction_total_days": "90",
-    "countries": [
-      "DK",
-      "GB",
-      "DE",
-      "SE",
-      "ES",
-      "IE",
-      "DK"
-    ],
+    "countries": ["DK", "GB", "DE", "SE", "ES", "IE", "DK"],
     "logo": "https://cdn-logos.gocardless.com/ais/PLEO_PLEODK00.png"
   },
   {

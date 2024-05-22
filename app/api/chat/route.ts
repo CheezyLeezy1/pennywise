@@ -15,14 +15,14 @@ export async function POST(req: Request) {
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       stream: true,
-      messages
+      messages,
     })
 
     const stream = OpenAIStream(response)
     return new StreamingTextResponse(stream)
   } catch (error: any) {
     return new NextResponse(error.message || 'Something went wrong!', {
-      status: 500
+      status: 500,
     })
   }
 }

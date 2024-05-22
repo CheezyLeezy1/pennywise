@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import buttonStyle from '@/app/styles/button.module.css'
 import HeaderNavLinks from '@/data/HeaderNavLinks'
-import {getKindeServerSession} from '@kinde-oss/kinde-auth-nextjs/server'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import {
   LoginLink,
   RegisterLink,
 } from '@kinde-oss/kinde-auth-nextjs/components'
-import {LogoutLink} from '@kinde-oss/kinde-auth-nextjs/components'
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components'
 
 async function isAuthenticated() {
   const { isAuthenticated: isAuth } = getKindeServerSession()

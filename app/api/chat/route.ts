@@ -1,6 +1,5 @@
 import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { NextResponse } from 'next/server'
 
 export const runtime = 'edge'
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || '' })
@@ -8,7 +7,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || '' })
 export async function POST(req: Request) {
   try {
     if (!process.env.OPENAI_API_KEY) {
-      return new NextResponse('Missing OpenAI API Key.', { status: 400 })
+      return new Response('Missing OpenAI API Key.', { status: 400 })
     }
 
     const { messages } = await req.json()
@@ -21,7 +20,7 @@ export async function POST(req: Request) {
     const stream = OpenAIStream(response)
     return new StreamingTextResponse(stream)
   } catch (error: any) {
-    return new NextResponse(error.message || 'Something went wrong!', {
+    return new Response(error.message || 'Something went wrong!', {
       status: 500,
     })
   }

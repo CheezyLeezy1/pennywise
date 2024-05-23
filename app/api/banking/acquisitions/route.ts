@@ -1,20 +1,22 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
+    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
 
   console.log('hereeeee....')
 
-  const { institutionId } = req.body
+  const body = await req.json()
+  const { institutionId } = body
 
   const cookieStore = cookies()
 
   let accessToken = cookieStore.get('authToken')
-  const allaDem = cookies().getAll()
+  const allaDem = cookieStore.getAll()
   console.log(allaDem)
   console.log('accessToken', accessToken)
   const authToken = accessToken?.value
@@ -48,11 +50,20 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     console.log('acquisition-data: ', data)
 
     if (!response.ok) {
-      return NextResponse.json({ error: data }, { status: response.status })
+      return new Response(JSON.stringify({ error: data }), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json' },
+      })
     }
 
-    return NextResponse.json({ message: accessToken }, { status: 200 })
+    return new Response(JSON.stringify({ message: accessToken }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    })
   } catch (error) {
-    return NextResponse.json({ error: 'InternalServerError' }, { status: 500 })
+    return new Response(JSON.stringify({ error: 'InternalServerError' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
 }

@@ -14,9 +14,30 @@ export type institutionItem = {
   logo: string
 }
 
-export type AuthResponse = {
-  authToken: string
-  authTokenExpiry: string
-  authRefreshToken: string
-  authRefreshTokenExpiry: string
+export interface KindeUser {
+  id: string
+  email: string
+  picture: string
+  fullName: string
+  lastName: string
+  createdOn: Date
+  firstName: string
+  isSuspended: boolean
+  lastSignedIn: Date
+  totalSignIns: number
+  failedSignIns: number
+}
+
+export interface DecodedJWT {
+  aud: any[]
+  azp: string
+  email: string
+  exp: number
+  iat: number
+  iss: string
+  jti: string
+  orgCode: string
+  permissions: any[]
+  scp: string[]
+  sub: string
 }

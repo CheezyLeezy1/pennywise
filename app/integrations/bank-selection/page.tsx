@@ -10,12 +10,12 @@ export default function BankSelection() {
   const fetchInstitutions = async () => {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' // Assuming your API is on the same domain
-      const response = await fetch(`${baseUrl}/api/banking/institutions`)
-      if (!response.ok) {
+      const response2 = await fetch(`${baseUrl}/api/banking/institutions`)
+      if (!response2.ok) {
         // Check for successful response (status code 200-299)
-        throw new Error(`API request failed with status ${response.status}`)
+        throw new Error(`API request failed with status ${response2.status}`)
       }
-      const data = await response.json()
+      const data = await response2.json()
       console.log(data)
       return data
     } catch (error) {
@@ -25,7 +25,7 @@ export default function BankSelection() {
 
   useEffect(() => {
     fetchInstitutions()
-      .then((response) => setInstitutions(response.message))
+      .then((response) => setInstitutions(response?.message))
       .catch((error) => console.error('Error fetching data:', error))
   }, [])
 

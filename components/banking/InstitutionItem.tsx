@@ -17,9 +17,14 @@ export default function InstitutionItem({
       })
 
       const data = await response.json()
+      console.error(data)
 
       if (response.ok) {
-        window.location.href = data.link // Redirect to the acquisition link
+        if (data.link) {
+          window.location.href = data.link // Redirect to the acquisition link
+        } else {
+          console.error('nope.')
+        }
       } else {
         console.error('Failed to create acquisition link:', data.error)
       }
@@ -27,7 +32,6 @@ export default function InstitutionItem({
       console.error('Error creating acquisition link:', error)
     }
   }
-
   return (
     <div className="grid p-2">
       <div

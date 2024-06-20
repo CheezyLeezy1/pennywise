@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 
 function getCookies(): string {
   try {
-    const cookieStore = cookies()
+    const cookieStore = cookies();
     const authTokenCookie = cookieStore.get('AuthToken')
 
     if (!authTokenCookie) {
@@ -17,7 +17,7 @@ function getCookies(): string {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const authToken = getCookies()
     const institutionList = await getValidInstitutions(authToken)

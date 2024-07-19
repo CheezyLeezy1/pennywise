@@ -27,7 +27,6 @@ export async function createCredentials(formData: FormData) {
     }
 
     const formObject = Object.fromEntries(formData.entries())
-    const secretId = formData.get('clientId')?.toString() ?? ''
 
     const secretKey = formData.get('secretKey')?.toString() ?? ''
 
@@ -53,35 +52,11 @@ export async function createCredentials(formData: FormData) {
     }
 
     await saveUserAndCredentials(userData, credentialData)
-
-    const something = await setSecureCookies(secretId, encryptedSecret)
-    console.log('something:', something)
     return { success: true }
   } catch (error: any) {
     console.error('Error creating credentials:', error)
     return { success: false, errors: error.errors || error.message }
   }
-}
-export async function setSecureCookies(clientId: string, clientSecret: string) {
-  cookies().set({
-    name: 'clientId',
-    value: clientId,
-    httpOnly: true,
-    sameSite: 'strict',
-    // secure: true, // send over https
-    maxAge: 90 * 60,
-    path: '/',
-  })
-
-  cookies().set({
-    name: 'clientSecret',
-    value: clientSecret,
-    httpOnly: true,
-    sameSite: 'strict',
-    // secure: true, // send over https
-    maxAge: 90 * 60,
-    path: '/',
-  })
 }
 
 export async function setSecureAuthCookies(

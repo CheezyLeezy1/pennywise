@@ -67,10 +67,10 @@ export async function getUserCredentialsAndDecrypt() {
     console.log('clientId: secretId: ', secretId)
     console.log('secret: secret value, decrypted: ', decryptedClientSecret)
 
-    // return {
-    //   clientId: secretId,
-    //   clientSecret: decryptedClientSecret,
-    // };
+    return {
+      clientId: secretId,
+      clientSecret: decryptedClientSecret,
+    }
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(

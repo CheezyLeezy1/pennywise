@@ -1,9 +1,12 @@
 import { getValidInstitutions } from '@/lib/utils'
 import { cookies } from 'next/headers'
+import { getUserCredentialsAndDecrypt } from '@/data/prisma/prismaOperations'
 
 function getCookies(): string {
+  let result = getCreds()
+  console.log(result)
   try {
-    const cookieStore = cookies();
+    const cookieStore = cookies()
     const authTokenCookie = cookieStore.get('AuthToken')
 
     if (!authTokenCookie) {
@@ -15,6 +18,12 @@ function getCookies(): string {
     console.error('Error retrieving cookies:', error)
     throw new Error('Failed to retrieve cookies.')
   }
+}
+
+async function getCreds() {
+  getUserCredentialsAndDecrypt().then((r) =>
+    console.log(r.clientId, r.clientSecret)
+  )
 }
 
 export async function GET() {

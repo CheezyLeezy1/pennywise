@@ -8,5 +8,10 @@ export default function middleware(req: Request) {
 }
 
 export const config = {
-  matcher: ['/dashboard', '/integrations/user-setup', '/integrations/bank-selection', '/integrations/setup'],
+  matcher: [
+    '/dashboard',
+    '/integrations/user-setup',
+    '/integrations/bank-selection',
+    '/integrations/setup',
+  ],
 }

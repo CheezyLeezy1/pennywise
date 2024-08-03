@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test'
+import {baseUrl} from "@/lib/definitions";
 
 test.describe('navigation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/about')
+    await page.goto(baseUrl)
   })
 
   test('test header visibility & appearance', async ({ page }) => {

@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test'
+import {baseUrl} from "@/lib/definitions";
 
 test.describe('Contact Form Validation and Functionality', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/contact')
+    await page.goto(baseUrl)
   })
 
   test('form header and container visibility & appearance', async ({

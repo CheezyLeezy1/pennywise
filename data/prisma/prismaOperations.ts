@@ -1,13 +1,19 @@
-import { prisma } from '@/lib/prisma-client'
+import {
+  PrismaClient,
+  User,
+  GoCardlessCredential,
+  Prisma,
+} from '@prisma/client'
 import { getUserEmail } from '@/lib/kindeUtils'
 import { decrypt } from '@/lib/crypto/cryptoUtils'
-import { Prisma } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export async function saveUserAndCredentials(
-  userData: any,
-  credentialData: any
-) {
-  return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+  userData: User,
+  credentialData: GoCardlessCredential
+): Promise<User> {
+  return prisma.$transaction(async (tx) => {
     // Check if user already exists
     let user = await tx.user.findUnique({
       where: { kindeUserId: userData.kindeUserId },
@@ -38,14 +44,13 @@ export async function getUserCredentialsAndDecrypt() {
   try {
     // Step 1: Get the authenticated user's email
     const email = await getUserEmail()
-
     if (!email) {
       throw new Error('Email is not available')
     }
 
     // Step 2: Fetch the user's credentials using Prisma
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
       include: {
         goCardlessKeys: true,
       },
@@ -71,7 +76,7 @@ export async function getUserCredentialsAndDecrypt() {
       clientId: secretId,
       clientSecret: decryptedClientSecret,
     }
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof Error) {
       throw new Error(
         `Failed to get and decrypt user credentials: ${error.message}`
@@ -81,30 +86,29 @@ export async function getUserCredentialsAndDecrypt() {
   }
 }
 
-export async function checkIfSecretKeyExists() {
+export async function checkIfSecretKeyExists(): Promise<boolean> {
   try {
     // Get the authenticated user's email
     const email = await getUserEmail()
-
     if (!email) {
       throw new Error('Email is not available')
     }
 
     // Fetch the user's credentials using Prisma
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { email },
       include: {
         goCardlessKeys: true,
       },
     })
 
     if (!user || !user.goCardlessKeys || !user.goCardlessKeys.secretKey) {
-      console.log('user does not a secret key')
+      console.log('user does not have a secret key')
       return false
     }
 
     return true
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error checking for secret key existence:', error)
     return false
   }

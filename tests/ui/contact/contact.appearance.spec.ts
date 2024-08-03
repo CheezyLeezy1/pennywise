@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import {baseUrl} from "@/lib/definitions";
+import { baseUrl } from '@/lib/definitions'
 
 test.describe('Contact Form Validation and Functionality', () => {
   test.beforeEach(async ({ page }) => {

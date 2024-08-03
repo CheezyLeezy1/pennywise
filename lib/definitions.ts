@@ -16,7 +16,17 @@ export type institutionItemType = {
   countries: string[]
   logo: string
 }
+export type UserData = {
+  id: string
+  email: string | null
+  kindeUserId: string
+}
 
+export type CredentialData = {
+  secretId: FormDataEntryValue
+  secretKey: string
+  user: string
+}
 export interface DecodedJWT {
   aud: any[]
   azp: string

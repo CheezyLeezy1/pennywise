@@ -26,6 +26,10 @@ export async function createCredentials(formData: FormData) {
       throw new Error('User is not authenticated')
     }
 
+    if (!user.email) {
+      throw new Error('User email is not available')
+    }
+
     const formObject = Object.fromEntries(formData.entries())
 
     const secretKey = formData.get('secretKey')?.toString() ?? ''
@@ -46,8 +50,13 @@ export async function createCredentials(formData: FormData) {
       kindeUserId: user.id,
     }
 
+    const secretId = formObject.clientId?.toString() ?? ''
+    if (!secretId) {
+      throw new Error('Client ID is missing or invalid')
+    }
+
     const credentialData = {
-      secretId: formObject.clientId,
+      secretId,
       secretKey: encryptedSecret,
     }
 

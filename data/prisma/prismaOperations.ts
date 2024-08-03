@@ -1,18 +1,17 @@
-import {
-  PrismaClient,
-  User,
-  GoCardlessCredential,
-  Prisma,
-} from '@prisma/client'
+import { PrismaClient, Prisma, User } from '@prisma/client'
 import { getUserEmail } from '@/lib/kindeUtils'
 import { decrypt } from '@/lib/crypto/cryptoUtils'
 
 const prisma = new PrismaClient()
 
 export async function saveUserAndCredentials(
-  userData: User,
-  credentialData: GoCardlessCredential
+  userData: Prisma.UserCreateInput,
+  credentialData: Omit<Prisma.GoCardlessCredentialCreateInput, 'user'>
 ): Promise<User> {
+  if (!userData.email) {
+    throw new Error('Email cannot be null or undefined')
+  }
+
   return prisma.$transaction(async (tx) => {
     // Check if user already exists
     let user = await tx.user.findUnique({
@@ -35,11 +34,11 @@ export async function saveUserAndCredentials(
         userId: user.id,
       },
     })
-
     return user
   })
 }
 
+// Function to get user credentials and decrypt
 export async function getUserCredentialsAndDecrypt() {
   try {
     // Step 1: Get the authenticated user's email
@@ -86,6 +85,7 @@ export async function getUserCredentialsAndDecrypt() {
   }
 }
 
+// Function to check if a secret key exists
 export async function checkIfSecretKeyExists(): Promise<boolean> {
   try {
     // Get the authenticated user's email
@@ -103,7 +103,7 @@ export async function checkIfSecretKeyExists(): Promise<boolean> {
     })
 
     if (!user || !user.goCardlessKeys || !user.goCardlessKeys.secretKey) {
-      console.log('user does not have a secret key')
+      console.log('User does not have a secret key')
       return false
     }
 

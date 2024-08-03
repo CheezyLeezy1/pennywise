@@ -8,12 +8,13 @@ import { baseUrl } from '@/lib/definitions'
 
 export default function SetupPage() {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     const fetchAuthData = async () => {
       try {
+        // Fetching authentication data from API
         const response = await fetch(`${baseUrl}/api/banking/auth`)
         if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`)
@@ -21,25 +22,20 @@ export default function SetupPage() {
 
         const data = await response.json()
 
-        if (
-          data.message &&
-          data.message.authToken &&
-          data.message.authTokenExpiry &&
-          data.message.authRefreshToken &&
-          data.message.authRefreshTokenExpiry
-        ) {
-          const authToken = data.message.authToken
-          const refreshToken = data.message.authRefreshToken
-
-          await setSecureAuthCookies(authToken, refreshToken)
+        // Ensure the necessary authentication data is present
+        const { authToken, authRefreshToken } = data.message || {}
+        if (authToken && authRefreshToken) {
+          // Set secure authentication cookies
+          await setSecureAuthCookies(authToken, authRefreshToken)
 
           // Redirect to the next page
-          router.push(`${baseUrl}/integrations/bank-selection`)
+          router.push('/integrations/bank-selection')
         } else {
           throw new Error('Invalid authentication data')
         }
-      } catch (error: any) {
-        setError(error.message)
+      } catch (err: any) {
+        console.error('Error fetching auth data:', err)
+        setError(err.message || 'Unknown error')
       } finally {
         setLoading(false)
       }
@@ -55,4 +51,6 @@ export default function SetupPage() {
   if (error) {
     return <div>Error: {error}</div>
   }
+
+  return null // If there's no error and not loading, return nothing as the component will handle redirect
 }

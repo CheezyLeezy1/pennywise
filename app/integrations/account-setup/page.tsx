@@ -1,11 +1,11 @@
-// app/account-setup/page.tsx
 'use client'
+import React, { useState, useEffect, Suspense } from 'react'
 import WaitingScreen from '@/components/account-setup-component/waiting-screen'
-import React, { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { baseUrl } from '@/lib/definitions'
 
-export default function AccountSetupPage() {
+// Component to handle fetching and redirection logic
+function AccountSetupContent() {
   const router = useRouter()
   const [statusMessage, setStatusMessage] = useState('Doing Something...')
   const searchParams = useSearchParams()
@@ -26,7 +26,7 @@ export default function AccountSetupPage() {
         if (!response.ok) {
           const errorText = await response.text()
           console.error('Failed to fetch account details:', errorText)
-          throw new Error('F`ailed to fetch account details')
+          throw new Error('Failed to fetch account details')
         }
 
         const accountData = await response.json()
@@ -43,9 +43,16 @@ export default function AccountSetupPage() {
     fetchAccountDetails()
   }, [reqId, router])
 
+  return <WaitingScreen statusMessage={statusMessage} />
+}
+
+// Main page component
+export default function AccountSetupPage() {
   return (
-    <div>
-      <WaitingScreen statusMessage={statusMessage} />
-    </div>
+    <Suspense
+      fallback={<WaitingScreen statusMessage="Setting Up Account..." />}
+    >
+      <AccountSetupContent />
+    </Suspense>
   )
 }

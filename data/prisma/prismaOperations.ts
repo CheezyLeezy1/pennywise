@@ -5,8 +5,11 @@ import { decrypt } from '@/lib/crypto/cryptoUtils'
 const prisma = new PrismaClient()
 
 // Define types for input data
-type UserCreateData = Prisma.UserCreateInput
-type CredentialCreateData = Omit<Prisma.GoCardlessCredentialCreateInput, 'user'>
+type UserCreateData = Prisma.UserCreateWithoutGoCardlessKeysInput
+type CredentialCreateData = Omit<
+  Prisma.GoCardlessCredentialCreateWithoutUserInput,
+  'user'
+>
 
 // Function to save user and credentials
 export async function saveUserAndCredentials(

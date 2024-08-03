@@ -33,20 +33,16 @@ export async function createCredentials(formData: FormData) {
 
     const formObject = Object.fromEntries(formData.entries())
 
-    const secretKey = formData.get('secretKey')?.toString() ?? ''
-
-    if (!secretKey) {
-      throw new Error('Secret key is missing or invalid')
-    }
-
-    const encryptedSecret = await encrypt(secretKey)
-
+    // Validate form data using zod
     const validation = authSchema.safeParse(formObject)
     if (!validation.success) {
       return { success: false, errors: validation.error.flatten().fieldErrors }
     }
 
-    const userData: Prisma.UserCreateInput = {
+    const secretKey = formObject.secretKey?.toString() ?? ''
+    const encryptedSecret = await encrypt(secretKey)
+
+    const userData = {
       email: user.email!,
       kindeUserId: user.id,
     }
@@ -56,17 +52,16 @@ export async function createCredentials(formData: FormData) {
       throw new Error('Client ID is missing or invalid')
     }
 
-    const credentialData: Omit<Prisma.GoCardlessCredentialCreateInput, 'user'> =
-      {
-        secretId,
-        secretKey: encryptedSecret,
-      }
+    const credentialData = {
+      secretId,
+      secretKey: encryptedSecret,
+    }
 
     await saveUserAndCredentials(userData, credentialData)
     return { success: true }
   } catch (error: any) {
     console.error('Error creating credentials:', error)
-    return { success: false, errors: error.errors || error.message }
+    return { success: false, errors: error.message }
   }
 }
 

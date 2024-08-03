@@ -15,21 +15,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment with version 20
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Install project dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Run Prettier to check code formatting
       - name: Run Prettier Check
         run: npm run prettier:check
 
-      # Run ESLint to check for linting issues
       - name: Run ESLint
         run: npm run lint
 
@@ -42,25 +38,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment with version 20
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Install project dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Install Playwright browsers and dependencies
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # Run Playwright tests in headless mode
+      - name: Start server
+        run: npm run start &
+        continue-on-error: true
+
+      - name: Wait for server to be ready
+        run: |
+          npx wait-on http://localhost:3000
+          sleep 5
+
       - name: Run Playwright tests
         run: npx playwright test
 
-      # Upload Playwright test results as an artifact
       - name: Upload Playwright Test Results
         uses: actions/upload-artifact@v4
         if: always()

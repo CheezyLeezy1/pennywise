@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { createCredentials } from '@/app/actions'
 import { useRouter } from 'next/navigation'
+import { baseUrl } from '@/lib/definitions'
 
 export function UserSetupForm() {
   const [errors, setErrors] = useState({ clientId: '', secretKey: '' })
@@ -17,7 +18,7 @@ export function UserSetupForm() {
 
     const result = await createCredentials(formData)
     if (result.success) {
-      router.push('/integrations/setup')
+      router.push(`${baseUrl}/integrations/setup`)
     } else {
       // Update error messages
       const newErrors = result.errors

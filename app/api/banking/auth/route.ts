@@ -1,5 +1,5 @@
 import { BankAuthTokenResponse } from '@/lib/definitions'
-import { requestToken } from '@/lib/utils'
+import { requestToken } from '@/lib/token-utils'
 import { getUserCredentialsAndDecrypt } from '@/data/prisma/prismaOperations'
 
 export async function GET() {

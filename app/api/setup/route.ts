@@ -1,4 +1,4 @@
-import { getOAuthToken } from '@/lib/utils'
+import { getOAuthToken } from '@/lib/token-utils'
 export async function GET() {
   try {
     const data = await getOAuthToken()

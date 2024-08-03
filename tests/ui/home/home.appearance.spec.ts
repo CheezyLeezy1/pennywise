@@ -59,15 +59,4 @@ test.describe('navigation', () => {
     )
     await expect(page.getByRole('link', { name: '@CheezyDevs' })).toBeVisible()
   })
-
-  // test('test', async ({ page }) => {
-  //   await page.goto('https://pennywiseapp.kinde.com/auth/cx/_:nav&m:register&psid:2e8190a264414d9f952c05145725333a');
-  //   await page.getByTestId('login-first-name-field').click();
-  //   await page.getByTestId('login-first-name-field').fill('Test');
-  //   await page.getByTestId('auth-last-name-field').click();
-  //   await page.getByTestId('auth-last-name-field').fill('User');
-  //   await page.getByTestId('auth-email-field').click();
-  //   await page.getByTestId('auth-email-field').fill('testerpennywise123@gmail.com');
-  //   await page.getByTestId('auth-submit-button').click();
-  // });
 })

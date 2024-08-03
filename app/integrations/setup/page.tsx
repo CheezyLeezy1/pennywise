@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import LoadingComponent from '@/components/loading-component'
 import { setSecureAuthCookies } from '@/app/actions'
+import { baseUrl } from '@/lib/definitions'
 
 export default function SetupPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const router = useRouter()
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
   useEffect(() => {
     const fetchAuthData = async () => {
@@ -34,7 +34,7 @@ export default function SetupPage() {
           await setSecureAuthCookies(authToken, refreshToken)
 
           // Redirect to the next page
-          router.push('/integrations/bank-selection') // Replace '/next-page' with the actual path you want to navigate to
+          router.push(`${baseUrl}/integrations/bank-selection`)
         } else {
           throw new Error('Invalid authentication data')
         }
@@ -46,7 +46,7 @@ export default function SetupPage() {
     }
 
     fetchAuthData()
-  }, [router, baseUrl])
+  }, [router])
 
   if (loading) {
     return <LoadingComponent />

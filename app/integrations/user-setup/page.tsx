@@ -1,6 +1,16 @@
+'use server'
 import { UserSetupForm } from '@/components/setup/user-setup-form'
+import React from 'react'
+import { checkIfSecretKeyExists } from '@/data/prisma/prismaOperations'
+import { redirect } from 'next/navigation'
 
-export default function userSetup() {
+export default async function UserSetup() {
+  const secretKeyExists = await checkIfSecretKeyExists()
+
+  if (secretKeyExists) {
+    redirect('/integrations/setup')
+  }
+
   return (
     <>
       <section className="container mx-auto px-4 py-12 md:py-24">

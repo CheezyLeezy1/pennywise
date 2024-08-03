@@ -68,7 +68,7 @@ export async function setSecureAuthCookies(
     value: AuthToken,
     httpOnly: true,
     sameSite: 'strict',
-    // secure: true, // send over https
+    secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
     maxAge: 90 * 60,
     path: '/',
   })
@@ -78,8 +78,7 @@ export async function setSecureAuthCookies(
     value: AuthRefreshToken,
     httpOnly: true,
     sameSite: 'strict',
-    // secure: true, // send over https
-    maxAge: 90 * 60,
+    secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
     path: '/',
   })
 }

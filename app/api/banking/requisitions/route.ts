@@ -20,7 +20,9 @@ export async function POST(req: Request) {
     }
 
     const redirectUrl =
-      process.env.NEXT_PUBLIC_REDIRECT_URL || 'http://localhost:3000/dashboard'
+      process.env.NEXT_PUBLIC_REDIRECT_URL ||
+      'http://localhost:3000/integrations/account-setup'
+
     const userLanguage = 'EN'
 
     const response = await fetch(
@@ -48,13 +50,12 @@ export async function POST(req: Request) {
         headers: { 'Content-Type': 'application/json' },
       })
     }
-
     return new Response(JSON.stringify(data), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     })
   } catch (error: any) {
-    console.error('Error processing acquisition request:', error)
+    console.error('Error account-setup-component requisition request:', error)
     return new Response(
       JSON.stringify({ error: error.message || 'InternalServerError' }),
       {

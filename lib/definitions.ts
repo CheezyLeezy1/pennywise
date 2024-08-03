@@ -1,3 +1,6 @@
+export const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+
 export type BankAuthTokenResponse = {
   access: string
   access_expires: number
@@ -5,27 +8,13 @@ export type BankAuthTokenResponse = {
   refresh_expires: number
 }
 
-export type institutionItem = {
+export type institutionItemType = {
   id: string
   name: string
   bic: string
   transaction_total_days: string
   countries: string[]
   logo: string
-}
-
-export interface KindeUser {
-  id: string
-  email: string
-  picture: string
-  fullName: string
-  lastName: string
-  createdOn: Date
-  firstName: string
-  isSuspended: boolean
-  lastSignedIn: Date
-  totalSignIns: number
-  failedSignIns: number
 }
 
 export interface DecodedJWT {
@@ -40,4 +29,79 @@ export interface DecodedJWT {
   permissions: any[]
   scp: string[]
   sub: string
+}
+
+export type ContactFormData = {
+  firstName: string
+  lastName: string
+  email: string
+  message: string
+}
+
+export type ContactFormErrors = {
+  firstName?: string
+  lastName?: string
+  email?: string
+  message?: string
+}
+interface CreditorAccount {
+  bban?: string
+}
+
+interface DebtorAccount {
+  bban?: string
+}
+
+// Common Transaction Interface
+export interface BaseTransaction {
+  bookingDate: string
+  bookingDateTime: string
+  transactionAmount: {
+    amount: string
+    currency: string
+  }
+  creditorName?: string
+  debtorName?: string
+  proprietaryBankTransactionCode?: string
+  internalTransactionId: string
+}
+
+// RevTransaction extends BaseTransaction
+export interface RevTransaction extends BaseTransaction {
+  transactionId: string
+  valueDate: string
+  valueDateTime: string
+  remittanceInformationUnstructuredArray: string[]
+  creditorAccount?: {
+    iban: string
+  }
+  debtorAccount?: {
+    iban: string
+  }
+}
+
+// AibTransaction extends BaseTransaction
+export interface AibTransaction extends BaseTransaction {
+  remittanceInformationUnstructured: string
+  merchantCategoryCode?: string
+  entryReference?: string
+  creditorAccount?: CreditorAccount
+  debtorAccount?: DebtorAccount
+  additionalInformation?: string
+}
+
+// New PtsbTransaction extends BaseTransaction
+export interface PtsbTransaction extends BaseTransaction {
+  valueDate: string
+  valueDateTime: string
+  remittanceInformationUnstructured: string
+  additionalInformation?: string
+  transactionId?: string // May be optional, not always present
+}
+
+// Common TransactionsData interface
+export interface TransactionsData<T extends BaseTransaction> {
+  transactions: {
+    booked: T[]
+  }
 }

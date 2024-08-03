@@ -80,3 +80,32 @@ export async function getUserCredentialsAndDecrypt() {
     throw new Error('An unknown error occurred')
   }
 }
+
+export async function checkIfSecretKeyExists() {
+  try {
+    // Get the authenticated user's email
+    const email = await getUserEmail()
+
+    if (!email) {
+      throw new Error('Email is not available')
+    }
+
+    // Fetch the user's credentials using Prisma
+    const user = await prisma.user.findUnique({
+      where: { email: email },
+      include: {
+        goCardlessKeys: true,
+      },
+    })
+
+    if (!user || !user.goCardlessKeys || !user.goCardlessKeys.secretKey) {
+      console.log('user does not a secret key')
+      return false
+    }
+
+    return true
+  } catch (error) {
+    console.error('Error checking for secret key existence:', error)
+    return false
+  }
+}

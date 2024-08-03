@@ -5,6 +5,7 @@ import { encrypt } from '@/lib/crypto/cryptoUtils'
 import { saveUserAndCredentials } from '@/data/prisma/prismaOperations'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { cookies } from 'next/headers'
+import { Prisma } from '@prisma/client'
 
 // Define the authentication schema
 const authSchema = z.object({
@@ -45,8 +46,8 @@ export async function createCredentials(formData: FormData) {
       return { success: false, errors: validation.error.flatten().fieldErrors }
     }
 
-    const userData = {
-      email: user.email,
+    const userData: Prisma.UserCreateInput = {
+      email: user.email!,
       kindeUserId: user.id,
     }
 
@@ -55,10 +56,11 @@ export async function createCredentials(formData: FormData) {
       throw new Error('Client ID is missing or invalid')
     }
 
-    const credentialData = {
-      secretId,
-      secretKey: encryptedSecret,
-    }
+    const credentialData: Omit<Prisma.GoCardlessCredentialCreateInput, 'user'> =
+      {
+        secretId,
+        secretKey: encryptedSecret,
+      }
 
     await saveUserAndCredentials(userData, credentialData)
     return { success: true }

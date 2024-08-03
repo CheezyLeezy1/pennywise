@@ -1,22 +1,29 @@
-import { PrismaClient, Prisma, User } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 import { getUserEmail } from '@/lib/kindeUtils'
 import { decrypt } from '@/lib/crypto/cryptoUtils'
 
 const prisma = new PrismaClient()
 
+// Define types for input data
+type UserCreateData = Prisma.UserCreateInput
+type CredentialCreateData = Omit<Prisma.GoCardlessCredentialCreateInput, 'user'>
+
+// Function to save user and credentials
 export async function saveUserAndCredentials(
-  userData: Prisma.UserCreateInput,
-  credentialData: Omit<Prisma.GoCardlessCredentialCreateInput, 'user'>
-): Promise<User> {
+  userData: UserCreateData,
+  credentialData: CredentialCreateData
+): Promise<ReturnType<typeof prisma.user.findUnique>> {
   if (!userData.email) {
     throw new Error('Email cannot be null or undefined')
   }
 
   return prisma.$transaction(async (tx) => {
     // Check if user already exists
-    let user = await tx.user.findUnique({
+    const existingUser = await tx.user.findUnique({
       where: { kindeUserId: userData.kindeUserId },
     })
+
+    let user = existingUser
 
     if (!user) {
       // Create user if not exists
@@ -34,12 +41,16 @@ export async function saveUserAndCredentials(
         userId: user.id,
       },
     })
+
     return user
   })
 }
 
 // Function to get user credentials and decrypt
-export async function getUserCredentialsAndDecrypt() {
+export async function getUserCredentialsAndDecrypt(): Promise<{
+  clientId: string
+  clientSecret: string
+}> {
   try {
     // Step 1: Get the authenticated user's email
     const email = await getUserEmail()
@@ -55,11 +66,7 @@ export async function getUserCredentialsAndDecrypt() {
       },
     })
 
-    if (!user) {
-      throw new Error('User not found')
-    }
-
-    if (!user.goCardlessKeys) {
+    if (!user || !user.goCardlessKeys) {
       throw new Error('GoCardless credentials not found')
     }
 
@@ -67,9 +74,6 @@ export async function getUserCredentialsAndDecrypt() {
 
     // Step 3: Decrypt the client secret
     const decryptedClientSecret = decrypt(secretKey)
-
-    console.log('clientId: secretId: ', secretId)
-    console.log('secret: secret value, decrypted: ', decryptedClientSecret)
 
     return {
       clientId: secretId,

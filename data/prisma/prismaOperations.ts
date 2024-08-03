@@ -71,7 +71,7 @@ export async function getUserCredentialsAndDecrypt() {
       clientId: secretId,
       clientSecret: decryptedClientSecret,
     }
-  } catch (error) {
+  } catch (error:any) {
     if (error instanceof Error) {
       throw new Error(
         `Failed to get and decrypt user credentials: ${error.message}`
@@ -104,7 +104,7 @@ export async function checkIfSecretKeyExists() {
     }
 
     return true
-  } catch (error) {
+  } catch (error:any) {
     console.error('Error checking for secret key existence:', error)
     return false
   }

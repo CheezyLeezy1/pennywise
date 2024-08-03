@@ -1,13 +1,13 @@
 import { prisma } from '@/lib/prisma-client'
 import { getUserEmail } from '@/lib/kindeUtils'
 import { decrypt } from '@/lib/crypto/cryptoUtils'
+import { Prisma } from '@prisma/client'
 
 export async function saveUserAndCredentials(
-  userData: any, // Replace 'any' with an appropriate type
-  credentialData: any // Replace 'any' with an appropriate type
+  userData: any,
+  credentialData: any
 ) {
-  //succeed or fail as a whole
-  return prisma.$transaction(async (tx) => {
+  return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     // Check if user already exists
     let user = await tx.user.findUnique({
       where: { kindeUserId: userData.kindeUserId },

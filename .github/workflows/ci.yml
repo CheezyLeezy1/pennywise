@@ -51,12 +51,11 @@ jobs:
 
       - name: Start server
         run: npm run start &
-        continue-on-error: true
+        env:
+          NODE_ENV: production
 
       - name: Wait for server to be ready
-        run: |
-          npx wait-on http://localhost:3000
-          sleep 5
+        run: npx wait-on http://localhost:3000
 
       - name: Run Playwright tests
         run: npx playwright test

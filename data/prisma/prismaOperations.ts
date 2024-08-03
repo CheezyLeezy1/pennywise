@@ -1,27 +1,27 @@
 import { prisma } from '@/lib/prisma-client'
 import { getUserEmail } from '@/lib/kindeUtils'
 import { decrypt } from '@/lib/crypto/cryptoUtils'
+import { Prisma } from '@prisma/client'
 
 export async function saveUserAndCredentials(
   userData: any,
   credentialData: any
 ) {
-  //succeed or fail as a whole
-  return prisma.$transaction(async (prisma) => {
+  return prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     // Check if user already exists
-    let user = await prisma.user.findUnique({
+    let user = await tx.user.findUnique({
       where: { kindeUserId: userData.kindeUserId },
     })
 
     if (!user) {
       // Create user if not exists
-      user = await prisma.user.create({
+      user = await tx.user.create({
         data: userData,
       })
     }
 
     // Upsert GoCardless credentials
-    await prisma.goCardlessCredential.upsert({
+    await tx.goCardlessCredential.upsert({
       where: { userId: user.id },
       update: credentialData,
       create: {

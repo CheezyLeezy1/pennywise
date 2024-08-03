@@ -12,7 +12,7 @@ type CredentialCreateData = Omit<Prisma.GoCardlessCredentialCreateInput, 'user'>
 export async function saveUserAndCredentials(
   userData: UserCreateData,
   credentialData: CredentialCreateData
-): Promise<ReturnType<typeof prisma.user.findUnique>> {
+): Promise<UserCreateData> {
   if (!userData.email) {
     throw new Error('Email cannot be null or undefined')
   }
@@ -74,6 +74,9 @@ export async function getUserCredentialsAndDecrypt(): Promise<{
 
     // Step 3: Decrypt the client secret
     const decryptedClientSecret = decrypt(secretKey)
+
+    console.log('clientId: secretId: ', secretId)
+    console.log('secret: secret value, decrypted: ', decryptedClientSecret)
 
     return {
       clientId: secretId,

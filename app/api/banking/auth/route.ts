@@ -1,9 +1,15 @@
 import { BankAuthTokenResponse } from '@/lib/definitions'
-import { requestToken } from '@/lib/utils'
+import { requestToken } from '@/lib/token-utils'
+import { getUserCredentialsAndDecrypt } from '@/data/prisma/prismaOperations'
 
 export async function GET() {
+  const { clientId, clientSecret } = await getUserCredentialsAndDecrypt()
+
   try {
-    const response: BankAuthTokenResponse = await requestToken()
+    const response: BankAuthTokenResponse = await requestToken(
+      clientId,
+      clientSecret
+    )
 
     const messageObj = {
       authToken: `${response.access}`,
@@ -12,13 +18,12 @@ export async function GET() {
       authRefreshTokenExpiry: `${response.refresh_expires}`,
     }
 
-    console.log(messageObj)
-
     return new Response(JSON.stringify({ message: messageObj }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     })
   } catch (error) {
+    console.log('error encountered: ', error)
     return new Response(JSON.stringify({ error: 'InternalServerError' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

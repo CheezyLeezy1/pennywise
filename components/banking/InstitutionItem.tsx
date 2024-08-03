@@ -1,14 +1,15 @@
-import { institutionItem } from '@/lib/definitions'
+'use client'
+
+import { baseUrl, institutionItemType } from '@/lib/definitions'
+import Image from 'next/image'
 export default function InstitutionItem({
   institution,
 }: {
-  institution: institutionItem
+  institution: institutionItemType
 }) {
   const handleClick = async () => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' // Assuming your API is on the same domain
-
-      const response = await fetch(`${baseUrl}/api/banking/acquisitions`, {
+      const response = await fetch(`${baseUrl}/api/banking/requisitions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -17,24 +18,28 @@ export default function InstitutionItem({
       })
 
       const data = await response.json()
+      console.error(data)
 
       if (response.ok) {
-        window.location.href = data.link // Redirect to the acquisition link
+        if (data.link) {
+          window.location.href = data.link // Redirect to the requisition link
+        } else {
+          console.error('nope.')
+        }
       } else {
-        console.error('Failed to create acquisition link:', data.error)
+        console.error('Failed to create requisition link:', data.error)
       }
     } catch (error) {
-      console.error('Error creating acquisition link:', error)
+      console.error('Error creating requisition link:', error)
     }
   }
-
   return (
     <div className="grid p-2">
       <div
         className="p-2 flex group items-center hover:bg-gray-100/50 rounded-xl gap-4 dark:hover:bg-gray-800/50 cursor-pointer"
         onClick={handleClick}
       >
-        <img
+        <Image
           className="object-contain aspect-video rounded-lg w-12 h-12"
           src={institution.logo}
           width="48"
@@ -47,10 +52,6 @@ export default function InstitutionItem({
             BIC: {institution.bic}
           </div>
         </div>
-        {/*<div*/}
-        {/*   className="ml-auto bg-gray-900 text-gray-50 px-2 py-1 rounded-md text-xs font-medium dark:bg-gray-50 dark:text-gray-900">*/}
-        {/*  Selected*/}
-        {/*</div>*/}
       </div>
     </div>
   )

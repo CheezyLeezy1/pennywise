@@ -1,22 +1,21 @@
 // 'use server'
 import { BankAuthTokenResponse } from '@/lib/definitions'
 import { requestToken } from '@/lib/token-utils'
-import { getUserCredentialsAndDecrypt } from '@/data/prisma/prismaOperations'
 
 export async function GET() {
   try {
-    // Retrieve the client's credentials securely from the server-side
-    const { clientId, clientSecret } = await getUserCredentialsAndDecrypt()
+    const secretId = process.env.SECRET_ID
+    const secretKey = process.env.SECRET_KEY
 
     // Ensure the required credentials are available
-    if (!clientId || !clientSecret) {
+    if (!secretId || !secretKey) {
       throw new Error('Client credentials are missing')
     }
 
     // Request an auth token using the decrypted credentials
     const response: BankAuthTokenResponse = await requestToken(
-      clientId,
-      clientSecret
+      secretId,
+      secretKey
     )
 
     // Ensure the response contains the required tokens

@@ -5,7 +5,7 @@ export const runtime = 'edge'
 
 export async function GET() {
   try {
-    const authToken = await getCookies();
+    const authToken = await getCookies()
     const institutionList = await getValidInstitutions(authToken)
     return new Response(JSON.stringify({ message: institutionList }), {
       status: 200,

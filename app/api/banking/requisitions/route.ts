@@ -2,7 +2,6 @@ import { cookies } from 'next/headers'
 
 export const runtime = 'edge'
 
-
 export async function POST(req: Request) {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
@@ -15,14 +14,17 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { institutionId } = body
 
-    const cookieStore = cookies();
+    const cookieStore = cookies()
     const authTokenCookie = cookieStore.get('AuthToken')?.value
 
     if (!authTokenCookie) {
-      return new Response(JSON.stringify({ error: 'Unauthorized: AuthToken cookie not found' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized: AuthToken cookie not found' }),
+        {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
     }
 
     const redirectUrl =
@@ -49,8 +51,8 @@ export async function POST(req: Request) {
     )
 
     console.log('authToken: ', authTokenCookie)
-    const data = await response.json();
-    console.log('data: ', data);
+    const data = await response.json()
+    console.log('data: ', data)
 
     if (!response.ok) {
       return new Response(JSON.stringify({ error: data.error }), {

@@ -26,7 +26,7 @@ export async function GET(req: Request) {
       )
     }
 
-    const cookieStore = cookies();
+    const cookieStore = cookies()
     const authTokenCookie = cookieStore.get('AuthToken')?.value
 
     const response = await fetch(

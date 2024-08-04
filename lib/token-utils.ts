@@ -9,7 +9,7 @@ export async function requestToken(clientId: string, clientSecret: string) {
   const headers = {
     accept: 'application/json',
     'Content-Type': 'application/json',
-    'Cache-Control': 'no-cache'
+    'Cache-Control': 'no-cache',
   }
 
   const body = JSON.stringify({

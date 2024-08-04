@@ -1,81 +1,89 @@
-# PennyWise
+# PennyWise: AI-Powered Financial Advisor
 
-PennyWise is a AI-Powered financial advisor application that aims to enable users to take better control of their financial lives.
-The app combines AI-driven financial insights with an emphasis on Security to provide users with personalised budgetary guidance and analytics.
+PennyWise is an AI-driven financial advisor application designed to empower users with better control over their financial lives.
+PennyWise offers personalized budgetary guidance and in-depth financial analytics.
+
+## Features
+
+- AI-powered financial insights
+- Personalized budgetary guidance
+- Comprehensive financial analytics
+- Strong emphasis on user data security
 
 ## Getting Started
 
-### Installation
+### Prerequisites
 
-Clone the repository and install dependencies:
+- Node.js (version 20 or later recommended)
+- npm (usually comes with Node.js)
 
-```bash
-git clone https://github.com/CheezyLeezy1/pennywise.git
-cd PennyWise
-npm install
-```
+## Installation
 
-### Development Server
+`git clone https://github.com/CheezyLeezy1/pennywise.git`
 
-To run the development server:
+## Navigate to the project directory:
 
-```bash
-npm run dev
-```
+`cd pennywise`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Install dependencies:
 
-### Building for Production
+`npm install`
 
-To build the application for production:
+# Development
 
-```bash
-npm run build
-```
+## To run the development server:
 
-### Starting Production Server
+`npm run dev`
+
+- Then open http://localhost:3000 in your browser to see the result.
+
+## Building for Production
+
+To create a production build:
+`npm run build`
+
+## Running in Production
 
 To start the production server:
+`npm start`
 
-```bash
-npm start
-```
+# Code Quality Tools
 
-## Code Formatting and Linting
+## Formatting with Prettier
 
-### Formatting with Prettier
+Format all files:
+`npm run prettier`
 
-To format code using Prettier:
+## Check for formatting issues:
 
-```bash
-npm run prettier
-```
+`npm run prettier:check`
 
-To check for code formatting issues:
+## Linting with ESLint
 
-```bash
-npm run prettier:check
-```
+Run the linter:
+`npm run lint`
 
-### Linting with ESLint
+## Testing
 
-To lint the code:
+Run Playwright tests:
+`npm test`
 
-```bash
-npm run lint
-```
+## Generate and view the test report:
 
-## Additional Information
-
-This project uses Next.js for server-side rendering and routing.
+`npm run test:report`
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To deepen your understanding of Next.js, explore these resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Next.js Documentation - Learn about Next.js features and API.
 
-```
+Learn Next.js - An interactive Next.js tutorial.
 
-```
+# License
+
+This project is licensed under the MIT License.
+
+# Support
+
+If you encounter any issues or have questions, please file an issue on the GitHub repository.

@@ -2,6 +2,22 @@
 
 import { cookies } from 'next/headers'
 
+export async function getCookies(): Promise<string> {
+  try {
+    const cookieStore = cookies()
+    const authTokenCookie = cookieStore.get('AuthToken')
+
+    if (!authTokenCookie) {
+      throw new Error('Cannot find authToken.')
+    }
+
+    return authTokenCookie.value
+  } catch (error) {
+    console.error('Error retrieving cookies:', error)
+    throw new Error('Failed to retrieve cookies.')
+  }
+}
+
 export async function setSecureAuthCookies(
   AuthToken: string,
   AuthRefreshToken: string

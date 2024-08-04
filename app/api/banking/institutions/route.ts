@@ -1,25 +1,11 @@
 import { getValidInstitutions } from '@/lib/token-utils'
-import { cookies } from 'next/headers'
+import { getCookies } from '@/app/actions'
 
-function getCookies(): string {
-  try {
-    const cookieStore = cookies()
-    const authTokenCookie = cookieStore.get('AuthToken')
-
-    if (!authTokenCookie) {
-      throw new Error('Cannot find authToken.')
-    }
-
-    return authTokenCookie.value
-  } catch (error) {
-    console.error('Error retrieving cookies:', error)
-    throw new Error('Failed to retrieve cookies.')
-  }
-}
+export const runtime = 'edge'
 
 export async function GET() {
   try {
-    const authToken = getCookies()
+    const authToken = await getCookies()
     const institutionList = await getValidInstitutions(authToken)
     return new Response(JSON.stringify({ message: institutionList }), {
       status: 200,

@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers'
 
+export const runtime = 'edge'
+
 export async function GET(req: Request) {
   if (req.method !== 'GET') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {

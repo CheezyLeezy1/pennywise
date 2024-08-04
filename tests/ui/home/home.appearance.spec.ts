@@ -33,7 +33,7 @@ test.describe('navigation', () => {
     await expect(page.getByText('Features')).toBeVisible()
     await expect(
       page.getByRole('heading', {
-        name: 'Unlock Your Financial Potential',
+        name: 'Unlock the Power of PennyWise🤖',
         exact: true,
       })
     ).toBeVisible()

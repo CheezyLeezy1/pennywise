@@ -34,7 +34,10 @@ export async function GET() {
     // Send the response with the token information
     return new Response(JSON.stringify({ message: messageObj }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, max-age=0'
+      },
     })
   } catch (error) {
     console.error('Error in GET handler:', error)

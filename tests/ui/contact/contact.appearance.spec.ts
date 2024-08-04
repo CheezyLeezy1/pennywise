@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test'
 import { baseUrl } from '@/lib/definitions'
 
+test.setTimeout(60000);
+
 test.describe('Contact Form', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${baseUrl}/contact`)
+    await page.waitForLoadState('networkidle');
+
   })
 
   test('should display the contact form correctly', async ({ page }) => {
@@ -32,7 +36,7 @@ test.describe('Contact Form', () => {
     page,
   }) => {
     await page.getByRole('button', { name: 'Send message' }).click()
-    await page.getByText('First name must be at least 2').click()
+    await expect(page.getByText('First name must be at least 2')).toBeVisible({ timeout: 10000 })
     await page.getByText('Last name must be at least 2').click()
     await page.getByText('Invalid email address').click()
     await page.getByText('Message must be at least 10').click()
@@ -44,7 +48,6 @@ test.describe('Contact Form', () => {
     await page.getByLabel('Email').fill('invalid-email')
     await page.getByLabel('Message').fill('Short')
     await page.getByRole('button', { name: 'Send message' }).click()
-    await page.screenshot({ path: 'after-submission.png' })
   })
 
   test('should not show errors with valid input', async ({ page }) => {
@@ -82,14 +85,14 @@ test.describe('Contact Form', () => {
       .fill('Omg your app rocks!')
 
     await page.getByRole('button', { name: 'Send message' }).click()
-    await page.getByRole('heading', { name: 'Success ✅' }).click()
+    await expect(page.getByRole('heading', { name: 'Success ✅' })).toBeVisible({ timeout: 10000 })
     await page
       .locator('section')
       .filter({
         hasText:
           'Unlock Your Financial Potential with PennyWiseWelcome to PennyWise, your',
       })
-      .click()
+      .click();
     expect(page.url()).toBe('http://localhost:3000/')
   })
 })

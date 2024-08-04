@@ -17,14 +17,14 @@ export default function InstitutionItem({
         body: JSON.stringify({ institutionId: institution.id }),
       })
 
-      const data = await response.json()
+      const data = await response.json();
       console.error(data)
 
       if (response.ok) {
         if (data.link) {
           window.location.href = data.link // Redirect to the requisition link
         } else {
-          console.error('nope.')
+          console.error('Requisition link not found.');
         }
       } else {
         console.error('Failed to create requisition link:', data.error)

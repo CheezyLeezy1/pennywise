@@ -8,9 +8,7 @@ test.describe('navigation', () => {
 
   test('header appears on home page', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Home' })).toBeVisible()
-    await expect(
-      page.locator('li').filter({ hasText: 'Contact' })
-    ).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Contact' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'About' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Sign up' })).toBeVisible()

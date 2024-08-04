@@ -4,8 +4,8 @@ import { requestToken } from '@/lib/token-utils'
 
 export async function GET() {
   try {
-    const secretId = process.env.SECRET_ID;
-    const secretKey = process.env.SECRET_KEY;
+    const secretId = process.env.SECRET_ID
+    const secretKey = process.env.SECRET_KEY
 
     // Ensure the required credentials are available
     if (!secretId || !secretKey) {

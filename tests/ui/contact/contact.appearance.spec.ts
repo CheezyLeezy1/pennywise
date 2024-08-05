@@ -35,7 +35,7 @@ test.describe('Contact Form', () => {
     page,
   }) => {
     await page.getByRole('button', { name: 'Send message' }).click()
-    await page.getByText('First name must be at least 2').click();
+    await page.getByText('First name must be at least 2').click()
     await page.getByText('Last name must be at least 2').click()
     await page.getByText('Invalid email address').click()
     await page.getByText('Message must be at least 10').click()
@@ -84,7 +84,7 @@ test.describe('Contact Form', () => {
       .fill('Omg your app rocks!')
 
     await page.getByRole('button', { name: 'Send message' }).click()
-    await page.getByRole('heading', { name: 'Success ✅' }).click();
+    await page.getByRole('heading', { name: 'Success ✅' }).click()
 
     await page
       .locator('section')

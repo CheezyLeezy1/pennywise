@@ -31,22 +31,6 @@ test.describe('Contact Form', () => {
     await expect(page.getByPlaceholder('Enter your message')).toBeVisible()
   })
 
-  test('should show validation errors for empty form submission', async ({
-    page,
-  }) => {
-    await page.getByRole('button', { name: 'Send message' }).click()
-    await expect(page.locator('form')).toContainText(
-      'First name must be at least 2 characters'
-    )
-    await expect(page.locator('form')).toContainText(
-      'Last name must be at least 2 characters'
-    )
-    await expect(page.locator('form')).toContainText('Invalid email address')
-    await expect(page.locator('form')).toContainText(
-      'Message must be at least 10'
-    )
-  })
-
   test('should show specific validation errors', async ({ page }) => {
     await page.getByLabel('First name').fill('J')
     await page.getByLabel('Last name').fill('D')

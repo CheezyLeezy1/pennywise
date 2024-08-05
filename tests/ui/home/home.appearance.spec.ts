@@ -8,9 +8,7 @@ test.describe('navigation', () => {
 
   test('header appears on home page', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Home' })).toBeVisible()
-    await expect(
-      page.locator('li').filter({ hasText: 'Contact' })
-    ).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Contact' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'About' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Sign up' })).toBeVisible()
@@ -33,7 +31,7 @@ test.describe('navigation', () => {
     await expect(page.getByText('Features')).toBeVisible()
     await expect(
       page.getByRole('heading', {
-        name: 'Unlock Your Financial Potential',
+        name: 'Unlock the Power of PennyWise🤖',
         exact: true,
       })
     ).toBeVisible()

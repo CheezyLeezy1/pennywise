@@ -14,19 +14,12 @@ if (process.env.NODE_ENV === 'production') {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: `
-              default-src 'self';
-              script-src 'self';
-              style-src 'self';
-              img-src 'self' https://storage.googleapis.com;
-              connect-src 'self';
-              font-src 'self';
-              frame-ancestors 'self';
-              form-action 'self';
-              object-src 'none';
-              base-uri 'self';
-              frame-src 'self';
-            `
+            value: ` default-src 'self';
+                                 img-src 'self' https://storage.googleapis.com;
+                                 object-src 'none';
+                                 frame-ancestors 'self';
+                                 base-uri 'self';
+                               `
               .replace(/\s{2,}/g, ' ')
               .trim(),
           },

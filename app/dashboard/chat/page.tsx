@@ -1,7 +1,7 @@
 'use client'
 
 import { useChat } from 'ai/react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useFetchTransactions } from '@/lib/hooks/fetchTransactionHook'
 import MarkdownRenderer from '@/components/markdown/MarkdownRenderer'
@@ -9,7 +9,7 @@ import Image from 'next/image'
 import WaitingScreen from '@/components/account-setup-component/waiting-screen'
 import { DashHeader } from '@/components/dashboard/dash-header'
 
-export default function Chat() {
+function ChatContent() {
   const ref = useRef<HTMLDivElement>(null)
   const [isChatReady, setIsChatReady] = useState(false)
   const searchParams = useSearchParams()
@@ -178,5 +178,17 @@ export default function Chat() {
         </div>
       </div>
     </>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <WaitingScreen statusMessage="Loading PennyWise Advisor Chat..." />
+      }
+    >
+      <ChatContent />
+    </Suspense>
   )
 }

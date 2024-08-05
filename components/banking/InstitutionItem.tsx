@@ -24,7 +24,7 @@ export default function InstitutionItem({
         if (data.link) {
           window.location.href = data.link // Redirect to the requisition link
         } else {
-          console.error('nope.')
+          console.error('Requisition link not found.')
         }
       } else {
         console.error('Failed to create requisition link:', data.error)

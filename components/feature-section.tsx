@@ -15,7 +15,7 @@ const FeatureSection = () => {
               Features
             </div>
             <h2 className="text-3xl font-bold tracking-tighter text-black sm:text-5xl">
-              Unlock Your Financial Potential
+              Unlock the Power of PennyWise🤖
             </h2>
             <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
               Discover <span className="font-bold underline">THE</span> tools to

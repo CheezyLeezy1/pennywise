@@ -3,7 +3,7 @@ import { baseUrl } from '@/lib/definitions'
 
 test.describe('navigation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(baseUrl)
+    await page.goto(baseUrl + '/about')
   })
 
   test('test header visibility & appearance', async ({ page }) => {

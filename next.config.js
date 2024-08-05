@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: ` default-src 'self';
+            value: `
                                  img-src 'self' https://storage.googleapis.com;
                                  object-src 'none';
                                  frame-ancestors 'self';
